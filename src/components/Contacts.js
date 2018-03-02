@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { ListGroup } from 'react-bootstrap';
+import ContactListItem from './ContactListItem';
 import AppActions from '../actions/AppActions';
 import AppStore from '../stores/AppStore';
+
+function getContactListItem(contact) {
+  return <ContactListItem key={contact.id} contact={contact} />;
+}
 
 class Contacts extends Component {
   constructor(props) {
@@ -30,13 +36,23 @@ class Contacts extends Component {
         contacts: AppStore.getContacts()
       },
       function() {
-        console.log(this.state);
+        //console.log(this.state);
       }
     );
   }
 
   render() {
-    return <div>CONTACTS</div>;
+    let contactListItems;
+    if (this.state.contacts) {
+      contactListItems = this.state.contacts.map(contact =>
+        getContactListItem(contact)
+      );
+    }
+    return (
+      <div>
+        <ListGroup>{contactListItems}</ListGroup>
+      </div>
+    );
   }
 }
 
