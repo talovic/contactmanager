@@ -19,6 +19,14 @@ export default {
           resolve(JSON.parse(response.text));
         });
     });
+  },
+  deleteContact: (url, id) => {
+    return new Promise((resolve, reject) => {
+      request.delete(url).end((err, response) => {
+        if (err) reject(err);
+        resolve(JSON.parse(response.text));
+      });
+    });
   }
 };
 
